@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: smart_inventory_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: inventory_db
+      POSTGRES_USER: inventory_user
+      POSTGRES_PASSWORD: inventory_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - inventory_postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: smart_inventory_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - inventory_redis_data:/data
+
+volumes:
+  inventory_postgres_data:
+  inventory_redis_data:
